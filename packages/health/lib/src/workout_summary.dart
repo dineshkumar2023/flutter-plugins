@@ -21,24 +21,22 @@ class WorkoutSummary {
   num totalSteps;
 
   WorkoutSummary({
-    required this.workoutType,
-    required this.totalDistance,
-    required this.totalEnergyBurned,
-    required this.totalSteps,
+    this.workoutType,
+    this.totalDistance,
+    this.totalEnergyBurned,
+    this.totalSteps,
   });
 
   /// Create a [WorkoutSummary] based on a health data point from native data format.
-  factory WorkoutSummary.fromHealthDataPoint(dynamic dataPoint) =>
-      WorkoutSummary(
-        workoutType: dataPoint['workout_type'] as String? ?? '',
-        totalDistance: dataPoint['total_distance'] as num? ?? 0,
-        totalEnergyBurned: dataPoint['total_energy_burned'] as num? ?? 0,
-        totalSteps: dataPoint['total_steps'] as num? ?? 0,
+  factory WorkoutSummary.fromHealthDataPoint(dynamic dataPoint) => WorkoutSummary(
+        workoutType: dataPoint['workout_type'] as String ?? '',
+        totalDistance: dataPoint['total_distance'] as num ?? 0,
+        totalEnergyBurned: dataPoint['total_energy_burned'] as num ?? 0,
+        totalSteps: dataPoint['total_steps'] as num ?? 0,
       );
 
   /// Create a [HealthDataPoint] from json.
-  factory WorkoutSummary.fromJson(Map<String, dynamic> json) =>
-      _$WorkoutSummaryFromJson(json);
+  factory WorkoutSummary.fromJson(Map<String, dynamic> json) => _$WorkoutSummaryFromJson(json);
 
   /// Convert this [HealthDataPoint] to json.
   Map<String, dynamic> toJson() => _$WorkoutSummaryToJson(this);

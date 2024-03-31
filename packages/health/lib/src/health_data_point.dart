@@ -42,18 +42,18 @@ class HealthDataPoint {
   bool isManualEntry;
 
   /// The summary of the workout data point, if available.
-  WorkoutSummary? workoutSummary;
+  WorkoutSummary workoutSummary;
 
   HealthDataPoint({
-    required this.value,
-    required this.type,
-    required this.unit,
-    required this.dateFrom,
-    required this.dateTo,
-    required this.platform,
-    required this.deviceId,
-    required this.sourceId,
-    required this.sourceName,
+    this.value,
+    this.type,
+    this.unit,
+    this.dateFrom,
+    this.dateTo,
+    this.platform,
+    this.deviceId,
+    this.sourceId,
+    this.sourceName,
     this.isManualEntry = false,
     this.workoutSummary,
   }) {
@@ -79,12 +79,10 @@ class HealthDataPoint {
   /// Converts dateTo - dateFrom to minutes.
   NumericHealthValue _convertMinutes() => NumericHealthValue(
       numericValue:
-          (dateTo.millisecondsSinceEpoch - dateFrom.millisecondsSinceEpoch) /
-              (1000 * 60));
+          (dateTo.millisecondsSinceEpoch - dateFrom.millisecondsSinceEpoch) / (1000 * 60));
 
   /// Create a [HealthDataPoint] from json.
-  factory HealthDataPoint.fromJson(Map<String, dynamic> json) =>
-      _$HealthDataPointFromJson(json);
+  factory HealthDataPoint.fromJson(Map<String, dynamic> json) => _$HealthDataPointFromJson(json);
 
   /// Convert this [HealthDataPoint] to json.
   Map<String, dynamic> toJson() => _$HealthDataPointToJson(this);
@@ -95,29 +93,46 @@ class HealthDataPoint {
     dynamic dataPoint,
   ) {
     // Handling different [HealthValue] types
-    HealthValue value = switch (dataType) {
-      HealthDataType.AUDIOGRAM =>
-        AudiogramHealthValue.fromHealthDataPoint(dataPoint),
-      HealthDataType.WORKOUT =>
-        WorkoutHealthValue.fromHealthDataPoint(dataPoint),
-      HealthDataType.ELECTROCARDIOGRAM =>
-        ElectrocardiogramHealthValue.fromHealthDataPoint(dataPoint),
-      HealthDataType.NUTRITION =>
-        NutritionHealthValue.fromHealthDataPoint(dataPoint),
-      _ => NumericHealthValue.fromHealthDataPoint(dataPoint),
-    };
+    // HealthValue value = switch (dataType) {
+    //   HealthDataType.AUDIOGRAM =>
+    //     AudiogramHealthValue.fromHealthDataPoint(dataPoint),
+    //   HealthDataType.WORKOUT =>
+    //     WorkoutHealthValue.fromHealthDataPoint(dataPoint),
+    //   HealthDataType.ELECTROCARDIOGRAM =>
+    //     ElectrocardiogramHealthValue.fromHealthDataPoint(dataPoint),
+    //   HealthDataType.NUTRITION =>
+    //     NutritionHealthValue.fromHealthDataPoint(dataPoint),
+    //   _ => NumericHealthValue.fromHealthDataPoint(dataPoint),
+    // };
 
-    final DateTime from =
-        DateTime.fromMillisecondsSinceEpoch(dataPoint['date_from'] as int);
-    final DateTime to =
-        DateTime.fromMillisecondsSinceEpoch(dataPoint['date_to'] as int);
+    HealthValue value;
+    switch (dataType) {
+      case HealthDataType.AUDIOGRAM:
+        value = AudiogramHealthValue.fromHealthDataPoint(dataPoint);
+        break;
+      case HealthDataType.WORKOUT:
+        value = WorkoutHealthValue.fromHealthDataPoint(dataPoint);
+        break;
+      case HealthDataType.ELECTROCARDIOGRAM:
+        value = ElectrocardiogramHealthValue.fromHealthDataPoint(dataPoint);
+        break;
+      case HealthDataType.NUTRITION:
+        value = NutritionHealthValue.fromHealthDataPoint(dataPoint);
+        break;
+      default:
+        value = NumericHealthValue.fromHealthDataPoint(dataPoint);
+        break;
+    }
+
+    final DateTime from = DateTime.fromMillisecondsSinceEpoch(dataPoint['date_from'] as int);
+    final DateTime to = DateTime.fromMillisecondsSinceEpoch(dataPoint['date_to'] as int);
     final String sourceId = dataPoint["source_id"] as String;
     final String sourceName = dataPoint["source_name"] as String;
-    final bool isManualEntry = dataPoint["is_manual_entry"] as bool? ?? false;
+    final bool isManualEntry = dataPoint["is_manual_entry"] as bool ?? false;
     final unit = dataTypeToUnit[dataType] ?? HealthDataUnit.UNKNOWN_UNIT;
 
     // Set WorkoutSummary, if available.
-    WorkoutSummary? workoutSummary;
+    WorkoutSummary workoutSummary;
     if (dataPoint["workout_type"] != null ||
         dataPoint["total_distance"] != null ||
         dataPoint["total_energy_burned"] != null ||
@@ -169,6 +184,6 @@ class HealthDataPoint {
       isManualEntry == other.isManualEntry;
 
   @override
-  int get hashCode => Object.hash(value, unit, dateFrom, dateTo, type, platform,
-      deviceId, sourceId, sourceName);
+  int get hashCode =>
+      Object.hash(value, unit, dateFrom, dateTo, type, platform, deviceId, sourceId, sourceName);
 }

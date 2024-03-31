@@ -23,11 +23,11 @@ class NumericHealthValue extends HealthValue {
   /// A [num] value for the [HealthDataPoint].
   num numericValue;
 
-  NumericHealthValue({required this.numericValue});
+  NumericHealthValue({this.numericValue});
 
   /// Create a [NumericHealthValue] based on a health data point from native data format.
   factory NumericHealthValue.fromHealthDataPoint(dynamic dataPoint) =>
-      NumericHealthValue(numericValue: dataPoint['value'] as num? ?? 0);
+      NumericHealthValue(numericValue: dataPoint['value'] as num ?? 0);
 
   @override
   String toString() => '$runtimeType - numericValue: $numericValue';
@@ -65,19 +65,16 @@ class AudiogramHealthValue extends HealthValue {
   List<num> rightEarSensitivities;
 
   AudiogramHealthValue({
-    required this.frequencies,
-    required this.leftEarSensitivities,
-    required this.rightEarSensitivities,
+    this.frequencies,
+    this.leftEarSensitivities,
+    this.rightEarSensitivities,
   });
 
   /// Create a [AudiogramHealthValue] based on a health data point from native data format.
-  factory AudiogramHealthValue.fromHealthDataPoint(dynamic dataPoint) =>
-      AudiogramHealthValue(
-          frequencies: List<num>.from(dataPoint['frequencies'] as List),
-          leftEarSensitivities:
-              List<num>.from(dataPoint['leftEarSensitivities'] as List),
-          rightEarSensitivities:
-              List<num>.from(dataPoint['rightEarSensitivities'] as List));
+  factory AudiogramHealthValue.fromHealthDataPoint(dynamic dataPoint) => AudiogramHealthValue(
+      frequencies: List<num>.from(dataPoint['frequencies'] as List),
+      leftEarSensitivities: List<num>.from(dataPoint['leftEarSensitivities'] as List),
+      rightEarSensitivities: List<num>.from(dataPoint['rightEarSensitivities'] as List));
 
   @override
   String toString() => """$runtimeType - frequencies: ${frequencies.toString()},
@@ -99,8 +96,7 @@ class AudiogramHealthValue extends HealthValue {
       listEquals(rightEarSensitivities, other.rightEarSensitivities);
 
   @override
-  int get hashCode =>
-      Object.hash(frequencies, leftEarSensitivities, rightEarSensitivities);
+  int get hashCode => Object.hash(frequencies, leftEarSensitivities, rightEarSensitivities);
 }
 
 /// A [HealthValue] object for workouts
@@ -118,30 +114,30 @@ class WorkoutHealthValue extends HealthValue {
 
   /// The total energy burned during the workout.
   /// Might not be available for all workouts.
-  int? totalEnergyBurned;
+  int totalEnergyBurned;
 
   /// The unit of the total energy burned during the workout.
   /// Might not be available for all workouts.
-  HealthDataUnit? totalEnergyBurnedUnit;
+  HealthDataUnit totalEnergyBurnedUnit;
 
   /// The total distance covered during the workout.
   /// Might not be available for all workouts.
-  int? totalDistance;
+  int totalDistance;
 
   /// The unit of the total distance covered during the workout.
   /// Might not be available for all workouts.
-  HealthDataUnit? totalDistanceUnit;
+  HealthDataUnit totalDistanceUnit;
 
   /// The total steps covered during the workout.
   /// Might not be available for all workouts.
-  int? totalSteps;
+  int totalSteps;
 
   /// The unit of the total steps covered during the workout.
   /// Might not be available for all workouts.
-  HealthDataUnit? totalStepsUnit;
+  HealthDataUnit totalStepsUnit;
 
   WorkoutHealthValue(
-      {required this.workoutActivityType,
+      {this.workoutActivityType,
       this.totalEnergyBurned,
       this.totalEnergyBurnedUnit,
       this.totalDistance,
@@ -150,31 +146,27 @@ class WorkoutHealthValue extends HealthValue {
       this.totalStepsUnit});
 
   /// Create a [WorkoutHealthValue] based on a health data point from native data format.
-  factory WorkoutHealthValue.fromHealthDataPoint(dynamic dataPoint) =>
-      WorkoutHealthValue(
-          workoutActivityType: HealthWorkoutActivityType.values.firstWhere(
-              (element) => element.name == dataPoint['workoutActivityType']),
-          totalEnergyBurned: dataPoint['totalEnergyBurned'] != null
-              ? (dataPoint['totalEnergyBurned'] as num).toInt()
-              : null,
-          totalEnergyBurnedUnit: dataPoint['totalEnergyBurnedUnit'] != null
-              ? HealthDataUnit.values.firstWhere((element) =>
-                  element.name == dataPoint['totalEnergyBurnedUnit'])
-              : null,
-          totalDistance: dataPoint['totalDistance'] != null
-              ? (dataPoint['totalDistance'] as num).toInt()
-              : null,
-          totalDistanceUnit: dataPoint['totalDistanceUnit'] != null
-              ? HealthDataUnit.values.firstWhere(
-                  (element) => element.name == dataPoint['totalDistanceUnit'])
-              : null,
-          totalSteps: dataPoint['totalSteps'] != null
-              ? (dataPoint['totalSteps'] as num).toInt()
-              : null,
-          totalStepsUnit: dataPoint['totalStepsUnit'] != null
-              ? HealthDataUnit.values.firstWhere(
-                  (element) => element.name == dataPoint['totalStepsUnit'])
-              : null);
+  factory WorkoutHealthValue.fromHealthDataPoint(dynamic dataPoint) => WorkoutHealthValue(
+      workoutActivityType: HealthWorkoutActivityType.values
+          .firstWhere((element) => element.name == dataPoint['workoutActivityType']),
+      totalEnergyBurned: dataPoint['totalEnergyBurned'] != null
+          ? (dataPoint['totalEnergyBurned'] as num).toInt()
+          : null,
+      totalEnergyBurnedUnit: dataPoint['totalEnergyBurnedUnit'] != null
+          ? HealthDataUnit.values
+              .firstWhere((element) => element.name == dataPoint['totalEnergyBurnedUnit'])
+          : null,
+      totalDistance:
+          dataPoint['totalDistance'] != null ? (dataPoint['totalDistance'] as num).toInt() : null,
+      totalDistanceUnit: dataPoint['totalDistanceUnit'] != null
+          ? HealthDataUnit.values
+              .firstWhere((element) => element.name == dataPoint['totalDistanceUnit'])
+          : null,
+      totalSteps: dataPoint['totalSteps'] != null ? (dataPoint['totalSteps'] as num).toInt() : null,
+      totalStepsUnit: dataPoint['totalStepsUnit'] != null
+          ? HealthDataUnit.values
+              .firstWhere((element) => element.name == dataPoint['totalStepsUnit'])
+          : null);
 
   @override
   Function get fromJsonFunction => _$WorkoutHealthValueFromJson;
@@ -184,8 +176,7 @@ class WorkoutHealthValue extends HealthValue {
   Map<String, dynamic> toJson() => _$WorkoutHealthValueToJson(this);
 
   @override
-  String toString() =>
-      """$runtimeType - workoutActivityType: ${workoutActivityType.name},
+  String toString() => """$runtimeType - workoutActivityType: ${workoutActivityType.name},
            totalEnergyBurned: $totalEnergyBurned,
            totalEnergyBurnedUnit: ${totalEnergyBurnedUnit?.name},
            totalDistance: $totalDistance,
@@ -205,14 +196,8 @@ class WorkoutHealthValue extends HealthValue {
       totalStepsUnit == other.totalStepsUnit;
 
   @override
-  int get hashCode => Object.hash(
-      workoutActivityType,
-      totalEnergyBurned,
-      totalEnergyBurnedUnit,
-      totalDistance,
-      totalDistanceUnit,
-      totalSteps,
-      totalStepsUnit);
+  int get hashCode => Object.hash(workoutActivityType, totalEnergyBurned, totalEnergyBurnedUnit,
+      totalDistance, totalDistanceUnit, totalSteps, totalStepsUnit);
 }
 
 /// A [HealthValue] object for ECGs
@@ -228,16 +213,16 @@ class ElectrocardiogramHealthValue extends HealthValue {
   List<ElectrocardiogramVoltageValue> voltageValues;
 
   /// The average heart rate during the ECG (in BPM).
-  num? averageHeartRate;
+  num averageHeartRate;
 
   /// The frequency at which the Apple Watch sampled the voltage.
-  double? samplingFrequency;
+  double samplingFrequency;
 
   /// An [ElectrocardiogramClassification].
-  ElectrocardiogramClassification? classification;
+  ElectrocardiogramClassification classification;
 
   ElectrocardiogramHealthValue({
-    required this.voltageValues,
+    this.voltageValues,
     this.averageHeartRate,
     this.samplingFrequency,
     this.classification,
@@ -254,11 +239,10 @@ class ElectrocardiogramHealthValue extends HealthValue {
   factory ElectrocardiogramHealthValue.fromHealthDataPoint(dynamic dataPoint) =>
       ElectrocardiogramHealthValue(
         voltageValues: (dataPoint['voltageValues'] as List)
-            .map((voltageValue) =>
-                ElectrocardiogramVoltageValue.fromHealthDataPoint(voltageValue))
+            .map((voltageValue) => ElectrocardiogramVoltageValue.fromHealthDataPoint(voltageValue))
             .toList(),
-        averageHeartRate: dataPoint['averageHeartRate'] as num?,
-        samplingFrequency: dataPoint['samplingFrequency'] as double?,
+        averageHeartRate: dataPoint['averageHeartRate'] as num,
+        samplingFrequency: dataPoint['samplingFrequency'] as double,
         classification: ElectrocardiogramClassification.values
             .firstWhere((c) => c.value == dataPoint['classification']),
       );
@@ -272,8 +256,8 @@ class ElectrocardiogramHealthValue extends HealthValue {
       classification == other.classification;
 
   @override
-  int get hashCode => Object.hash(
-      voltageValues, averageHeartRate, samplingFrequency, classification);
+  int get hashCode =>
+      Object.hash(voltageValues, averageHeartRate, samplingFrequency, classification);
 
   @override
   String toString() =>
@@ -290,13 +274,12 @@ class ElectrocardiogramVoltageValue extends HealthValue {
   num timeSinceSampleStart;
 
   ElectrocardiogramVoltageValue({
-    required this.voltage,
-    required this.timeSinceSampleStart,
+    this.voltage,
+    this.timeSinceSampleStart,
   });
 
   /// Create a [ElectrocardiogramVoltageValue] based on a health data point from native data format.
-  factory ElectrocardiogramVoltageValue.fromHealthDataPoint(
-          dynamic dataPoint) =>
+  factory ElectrocardiogramVoltageValue.fromHealthDataPoint(dynamic dataPoint) =>
       ElectrocardiogramVoltageValue(
           voltage: dataPoint['voltage'] as num,
           timeSinceSampleStart: dataPoint['timeSinceSampleStart'] as num);
@@ -334,25 +317,25 @@ class ElectrocardiogramVoltageValue extends HealthValue {
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class NutritionHealthValue extends HealthValue {
   /// The type of meal.
-  String? mealType;
+  String mealType;
 
   /// The amount of protein in grams.
-  double? protein;
+  double protein;
 
   /// The amount of calories in kcal.
-  double? calories;
+  double calories;
 
   /// The amount of fat in grams.
-  double? fat;
+  double fat;
 
   /// The name of the food.
-  String? name;
+  String name;
 
   /// The amount of carbs in grams.
-  double? carbs;
+  double carbs;
 
   /// The amount of caffeine in grams.
-  double? caffeine;
+  double caffeine;
 
   NutritionHealthValue({
     this.mealType,
@@ -372,25 +355,14 @@ class NutritionHealthValue extends HealthValue {
   Map<String, dynamic> toJson() => _$NutritionHealthValueToJson(this);
 
   /// Create a [NutritionHealthValue] based on a health data point from native data format.
-  factory NutritionHealthValue.fromHealthDataPoint(dynamic dataPoint) =>
-      NutritionHealthValue(
+  factory NutritionHealthValue.fromHealthDataPoint(dynamic dataPoint) => NutritionHealthValue(
         mealType: dataPoint['mealType'] as String,
-        protein: dataPoint['protein'] != null
-            ? (dataPoint['protein'] as num).toDouble()
-            : null,
-        calories: dataPoint['calories'] != null
-            ? (dataPoint['calories'] as num).toDouble()
-            : null,
-        fat: dataPoint['fat'] != null
-            ? (dataPoint['fat'] as num).toDouble()
-            : null,
+        protein: dataPoint['protein'] != null ? (dataPoint['protein'] as num).toDouble() : null,
+        calories: dataPoint['calories'] != null ? (dataPoint['calories'] as num).toDouble() : null,
+        fat: dataPoint['fat'] != null ? (dataPoint['fat'] as num).toDouble() : null,
         name: dataPoint['name'] != null ? (dataPoint['name'] as String) : null,
-        carbs: dataPoint['carbs'] != null
-            ? (dataPoint['carbs'] as num).toDouble()
-            : null,
-        caffeine: dataPoint['caffeine'] != null
-            ? (dataPoint['caffeine'] as num).toDouble()
-            : null,
+        carbs: dataPoint['carbs'] != null ? (dataPoint['carbs'] as num).toDouble() : null,
+        caffeine: dataPoint['caffeine'] != null ? (dataPoint['caffeine'] as num).toDouble() : null,
       );
 
   @override
@@ -414,6 +386,5 @@ class NutritionHealthValue extends HealthValue {
       other.mealType == mealType;
 
   @override
-  int get hashCode =>
-      Object.hash(protein, calories, fat, name, carbs, caffeine);
+  int get hashCode => Object.hash(protein, calories, fat, name, carbs, caffeine);
 }

@@ -6,8 +6,7 @@ part of 'health.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-HealthDataPoint _$HealthDataPointFromJson(Map<String, dynamic> json) =>
-    HealthDataPoint(
+HealthDataPoint _$HealthDataPointFromJson(Map<String, dynamic> json) => HealthDataPoint(
       value: HealthValue.fromJson(json['value'] as Map<String, dynamic>),
       type: $enumDecode(_$HealthDataTypeEnumMap, json['type']),
       unit: $enumDecode(_$HealthDataUnitEnumMap, json['unit']),
@@ -17,21 +16,20 @@ HealthDataPoint _$HealthDataPointFromJson(Map<String, dynamic> json) =>
       deviceId: json['device_id'] as String,
       sourceId: json['source_id'] as String,
       sourceName: json['source_name'] as String,
-      isManualEntry: json['is_manual_entry'] as bool? ?? false,
+      isManualEntry: json['is_manual_entry'] as bool ?? false,
       workoutSummary: json['workout_summary'] == null
           ? null
-          : WorkoutSummary.fromJson(
-              json['workout_summary'] as Map<String, dynamic>),
+          : WorkoutSummary.fromJson(json['workout_summary'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$HealthDataPointToJson(HealthDataPoint instance) {
   final val = <String, dynamic>{
     'value': instance.value,
-    'type': _$HealthDataTypeEnumMap[instance.type]!,
-    'unit': _$HealthDataUnitEnumMap[instance.unit]!,
+    'type': _$HealthDataTypeEnumMap[instance.type],
+    'unit': _$HealthDataUnitEnumMap[instance.unit],
     'date_from': instance.dateFrom.toIso8601String(),
     'date_to': instance.dateTo.toIso8601String(),
-    'platform': _$PlatformTypeEnumMap[instance.platform]!,
+    'platform': _$PlatformTypeEnumMap[instance.platform],
     'device_id': instance.deviceId,
     'source_id': instance.sourceId,
     'source_name': instance.sourceName,
@@ -135,8 +133,7 @@ const _$HealthDataUnitEnumMap = {
   HealthDataUnit.INCHES_OF_MERCURY: 'INCHES_OF_MERCURY',
   HealthDataUnit.CENTIMETER_OF_WATER: 'CENTIMETER_OF_WATER',
   HealthDataUnit.ATMOSPHERE: 'ATMOSPHERE',
-  HealthDataUnit.DECIBEL_A_WEIGHTED_SOUND_PRESSURE_LEVEL:
-      'DECIBEL_A_WEIGHTED_SOUND_PRESSURE_LEVEL',
+  HealthDataUnit.DECIBEL_A_WEIGHTED_SOUND_PRESSURE_LEVEL: 'DECIBEL_A_WEIGHTED_SOUND_PRESSURE_LEVEL',
   HealthDataUnit.SECOND: 'SECOND',
   HealthDataUnit.MILLISECOND: 'MILLISECOND',
   HealthDataUnit.MINUTE: 'MINUTE',
@@ -169,7 +166,7 @@ const _$PlatformTypeEnumMap = {
 };
 
 HealthValue _$HealthValueFromJson(Map<String, dynamic> json) =>
-    HealthValue()..$type = json['__type'] as String?;
+    HealthValue()..$type = json['__type'] as String;
 
 Map<String, dynamic> _$HealthValueToJson(HealthValue instance) {
   final val = <String, dynamic>{};
@@ -184,10 +181,9 @@ Map<String, dynamic> _$HealthValueToJson(HealthValue instance) {
   return val;
 }
 
-NumericHealthValue _$NumericHealthValueFromJson(Map<String, dynamic> json) =>
-    NumericHealthValue(
+NumericHealthValue _$NumericHealthValueFromJson(Map<String, dynamic> json) => NumericHealthValue(
       numericValue: json['numeric_value'] as num,
-    )..$type = json['__type'] as String?;
+    )..$type = json['__type'] as String;
 
 Map<String, dynamic> _$NumericHealthValueToJson(NumericHealthValue instance) {
   final val = <String, dynamic>{};
@@ -203,21 +199,16 @@ Map<String, dynamic> _$NumericHealthValueToJson(NumericHealthValue instance) {
   return val;
 }
 
-AudiogramHealthValue _$AudiogramHealthValueFromJson(
-        Map<String, dynamic> json) =>
+AudiogramHealthValue _$AudiogramHealthValueFromJson(Map<String, dynamic> json) =>
     AudiogramHealthValue(
-      frequencies:
-          (json['frequencies'] as List<dynamic>).map((e) => e as num).toList(),
-      leftEarSensitivities: (json['left_ear_sensitivities'] as List<dynamic>)
-          .map((e) => e as num)
-          .toList(),
-      rightEarSensitivities: (json['right_ear_sensitivities'] as List<dynamic>)
-          .map((e) => e as num)
-          .toList(),
-    )..$type = json['__type'] as String?;
+      frequencies: (json['frequencies'] as List<dynamic>).map((e) => e as num).toList(),
+      leftEarSensitivities:
+          (json['left_ear_sensitivities'] as List<dynamic>).map((e) => e as num).toList(),
+      rightEarSensitivities:
+          (json['right_ear_sensitivities'] as List<dynamic>).map((e) => e as num).toList(),
+    )..$type = json['__type'] as String;
 
-Map<String, dynamic> _$AudiogramHealthValueToJson(
-    AudiogramHealthValue instance) {
+Map<String, dynamic> _$AudiogramHealthValueToJson(AudiogramHealthValue instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -233,20 +224,17 @@ Map<String, dynamic> _$AudiogramHealthValueToJson(
   return val;
 }
 
-WorkoutHealthValue _$WorkoutHealthValueFromJson(Map<String, dynamic> json) =>
-    WorkoutHealthValue(
-      workoutActivityType: $enumDecode(
-          _$HealthWorkoutActivityTypeEnumMap, json['workout_activity_type']),
-      totalEnergyBurned: json['total_energy_burned'] as int?,
-      totalEnergyBurnedUnit: $enumDecodeNullable(
-          _$HealthDataUnitEnumMap, json['total_energy_burned_unit']),
-      totalDistance: json['total_distance'] as int?,
-      totalDistanceUnit: $enumDecodeNullable(
-          _$HealthDataUnitEnumMap, json['total_distance_unit']),
-      totalSteps: json['total_steps'] as int?,
-      totalStepsUnit: $enumDecodeNullable(
-          _$HealthDataUnitEnumMap, json['total_steps_unit']),
-    )..$type = json['__type'] as String?;
+WorkoutHealthValue _$WorkoutHealthValueFromJson(Map<String, dynamic> json) => WorkoutHealthValue(
+      workoutActivityType:
+          $enumDecode(_$HealthWorkoutActivityTypeEnumMap, json['workout_activity_type']),
+      totalEnergyBurned: json['total_energy_burned'] as int,
+      totalEnergyBurnedUnit:
+          $enumDecodeNullable(_$HealthDataUnitEnumMap, json['total_energy_burned_unit']),
+      totalDistance: json['total_distance'] as int,
+      totalDistanceUnit: $enumDecodeNullable(_$HealthDataUnitEnumMap, json['total_distance_unit']),
+      totalSteps: json['total_steps'] as int,
+      totalStepsUnit: $enumDecodeNullable(_$HealthDataUnitEnumMap, json['total_steps_unit']),
+    )..$type = json['__type'] as String;
 
 Map<String, dynamic> _$WorkoutHealthValueToJson(WorkoutHealthValue instance) {
   final val = <String, dynamic>{};
@@ -258,17 +246,13 @@ Map<String, dynamic> _$WorkoutHealthValueToJson(WorkoutHealthValue instance) {
   }
 
   writeNotNull('__type', instance.$type);
-  val['workout_activity_type'] =
-      _$HealthWorkoutActivityTypeEnumMap[instance.workoutActivityType]!;
+  val['workout_activity_type'] = _$HealthWorkoutActivityTypeEnumMap[instance.workoutActivityType];
   writeNotNull('total_energy_burned', instance.totalEnergyBurned);
-  writeNotNull('total_energy_burned_unit',
-      _$HealthDataUnitEnumMap[instance.totalEnergyBurnedUnit]);
+  writeNotNull('total_energy_burned_unit', _$HealthDataUnitEnumMap[instance.totalEnergyBurnedUnit]);
   writeNotNull('total_distance', instance.totalDistance);
-  writeNotNull('total_distance_unit',
-      _$HealthDataUnitEnumMap[instance.totalDistanceUnit]);
+  writeNotNull('total_distance_unit', _$HealthDataUnitEnumMap[instance.totalDistanceUnit]);
   writeNotNull('total_steps', instance.totalSteps);
-  writeNotNull(
-      'total_steps_unit', _$HealthDataUnitEnumMap[instance.totalStepsUnit]);
+  writeNotNull('total_steps_unit', _$HealthDataUnitEnumMap[instance.totalStepsUnit]);
   return val;
 }
 
@@ -289,8 +273,7 @@ const _$HealthWorkoutActivityTypeEnumMap = {
   HealthWorkoutActivityType.GOLF: 'GOLF',
   HealthWorkoutActivityType.GYMNASTICS: 'GYMNASTICS',
   HealthWorkoutActivityType.HANDBALL: 'HANDBALL',
-  HealthWorkoutActivityType.HIGH_INTENSITY_INTERVAL_TRAINING:
-      'HIGH_INTENSITY_INTERVAL_TRAINING',
+  HealthWorkoutActivityType.HIGH_INTENSITY_INTERVAL_TRAINING: 'HIGH_INTENSITY_INTERVAL_TRAINING',
   HealthWorkoutActivityType.HIKING: 'HIKING',
   HealthWorkoutActivityType.HOCKEY: 'HOCKEY',
   HealthWorkoutActivityType.SKATING: 'SKATING',
@@ -321,18 +304,15 @@ const _$HealthWorkoutActivityTypeEnumMap = {
   HealthWorkoutActivityType.TRACK_AND_FIELD: 'TRACK_AND_FIELD',
   HealthWorkoutActivityType.DISC_SPORTS: 'DISC_SPORTS',
   HealthWorkoutActivityType.LACROSSE: 'LACROSSE',
-  HealthWorkoutActivityType.PREPARATION_AND_RECOVERY:
-      'PREPARATION_AND_RECOVERY',
+  HealthWorkoutActivityType.PREPARATION_AND_RECOVERY: 'PREPARATION_AND_RECOVERY',
   HealthWorkoutActivityType.FLEXIBILITY: 'FLEXIBILITY',
   HealthWorkoutActivityType.COOLDOWN: 'COOLDOWN',
   HealthWorkoutActivityType.WHEELCHAIR_WALK_PACE: 'WHEELCHAIR_WALK_PACE',
   HealthWorkoutActivityType.WHEELCHAIR_RUN_PACE: 'WHEELCHAIR_RUN_PACE',
   HealthWorkoutActivityType.HAND_CYCLING: 'HAND_CYCLING',
   HealthWorkoutActivityType.CORE_TRAINING: 'CORE_TRAINING',
-  HealthWorkoutActivityType.FUNCTIONAL_STRENGTH_TRAINING:
-      'FUNCTIONAL_STRENGTH_TRAINING',
-  HealthWorkoutActivityType.TRADITIONAL_STRENGTH_TRAINING:
-      'TRADITIONAL_STRENGTH_TRAINING',
+  HealthWorkoutActivityType.FUNCTIONAL_STRENGTH_TRAINING: 'FUNCTIONAL_STRENGTH_TRAINING',
+  HealthWorkoutActivityType.TRADITIONAL_STRENGTH_TRAINING: 'TRADITIONAL_STRENGTH_TRAINING',
   HealthWorkoutActivityType.MIXED_CARDIO: 'MIXED_CARDIO',
   HealthWorkoutActivityType.STAIRS: 'STAIRS',
   HealthWorkoutActivityType.STEP_TRAINING: 'STEP_TRAINING',
@@ -426,21 +406,18 @@ const _$HealthWorkoutActivityTypeEnumMap = {
   HealthWorkoutActivityType.OTHER: 'OTHER',
 };
 
-ElectrocardiogramHealthValue _$ElectrocardiogramHealthValueFromJson(
-        Map<String, dynamic> json) =>
+ElectrocardiogramHealthValue _$ElectrocardiogramHealthValueFromJson(Map<String, dynamic> json) =>
     ElectrocardiogramHealthValue(
       voltageValues: (json['voltage_values'] as List<dynamic>)
-          .map((e) =>
-              ElectrocardiogramVoltageValue.fromJson(e as Map<String, dynamic>))
+          .map((e) => ElectrocardiogramVoltageValue.fromJson(e as Map<String, dynamic>))
           .toList(),
-      averageHeartRate: json['average_heart_rate'] as num?,
-      samplingFrequency: (json['sampling_frequency'] as num?)?.toDouble(),
-      classification: $enumDecodeNullable(
-          _$ElectrocardiogramClassificationEnumMap, json['classification']),
-    )..$type = json['__type'] as String?;
+      averageHeartRate: json['average_heart_rate'] as num,
+      samplingFrequency: (json['sampling_frequency'] as num)?.toDouble(),
+      classification:
+          $enumDecodeNullable(_$ElectrocardiogramClassificationEnumMap, json['classification']),
+    )..$type = json['__type'] as String;
 
-Map<String, dynamic> _$ElectrocardiogramHealthValueToJson(
-    ElectrocardiogramHealthValue instance) {
+Map<String, dynamic> _$ElectrocardiogramHealthValueToJson(ElectrocardiogramHealthValue instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -453,8 +430,7 @@ Map<String, dynamic> _$ElectrocardiogramHealthValueToJson(
   val['voltage_values'] = instance.voltageValues;
   writeNotNull('average_heart_rate', instance.averageHeartRate);
   writeNotNull('sampling_frequency', instance.samplingFrequency);
-  writeNotNull('classification',
-      _$ElectrocardiogramClassificationEnumMap[instance.classification]);
+  writeNotNull('classification', _$ElectrocardiogramClassificationEnumMap[instance.classification]);
   return val;
 }
 
@@ -462,25 +438,20 @@ const _$ElectrocardiogramClassificationEnumMap = {
   ElectrocardiogramClassification.NOT_SET: 'NOT_SET',
   ElectrocardiogramClassification.SINUS_RHYTHM: 'SINUS_RHYTHM',
   ElectrocardiogramClassification.ATRIAL_FIBRILLATION: 'ATRIAL_FIBRILLATION',
-  ElectrocardiogramClassification.INCONCLUSIVE_LOW_HEART_RATE:
-      'INCONCLUSIVE_LOW_HEART_RATE',
-  ElectrocardiogramClassification.INCONCLUSIVE_HIGH_HEART_RATE:
-      'INCONCLUSIVE_HIGH_HEART_RATE',
-  ElectrocardiogramClassification.INCONCLUSIVE_POOR_READING:
-      'INCONCLUSIVE_POOR_READING',
+  ElectrocardiogramClassification.INCONCLUSIVE_LOW_HEART_RATE: 'INCONCLUSIVE_LOW_HEART_RATE',
+  ElectrocardiogramClassification.INCONCLUSIVE_HIGH_HEART_RATE: 'INCONCLUSIVE_HIGH_HEART_RATE',
+  ElectrocardiogramClassification.INCONCLUSIVE_POOR_READING: 'INCONCLUSIVE_POOR_READING',
   ElectrocardiogramClassification.INCONCLUSIVE_OTHER: 'INCONCLUSIVE_OTHER',
   ElectrocardiogramClassification.UNRECOGNIZED: 'UNRECOGNIZED',
 };
 
-ElectrocardiogramVoltageValue _$ElectrocardiogramVoltageValueFromJson(
-        Map<String, dynamic> json) =>
+ElectrocardiogramVoltageValue _$ElectrocardiogramVoltageValueFromJson(Map<String, dynamic> json) =>
     ElectrocardiogramVoltageValue(
       voltage: json['voltage'] as num,
       timeSinceSampleStart: json['time_since_sample_start'] as num,
-    )..$type = json['__type'] as String?;
+    )..$type = json['__type'] as String;
 
-Map<String, dynamic> _$ElectrocardiogramVoltageValueToJson(
-    ElectrocardiogramVoltageValue instance) {
+Map<String, dynamic> _$ElectrocardiogramVoltageValueToJson(ElectrocardiogramVoltageValue instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -495,20 +466,18 @@ Map<String, dynamic> _$ElectrocardiogramVoltageValueToJson(
   return val;
 }
 
-NutritionHealthValue _$NutritionHealthValueFromJson(
-        Map<String, dynamic> json) =>
+NutritionHealthValue _$NutritionHealthValueFromJson(Map<String, dynamic> json) =>
     NutritionHealthValue(
-      mealType: json['meal_type'] as String?,
-      protein: (json['protein'] as num?)?.toDouble(),
-      calories: (json['calories'] as num?)?.toDouble(),
-      fat: (json['fat'] as num?)?.toDouble(),
-      name: json['name'] as String?,
-      carbs: (json['carbs'] as num?)?.toDouble(),
-      caffeine: (json['caffeine'] as num?)?.toDouble(),
-    )..$type = json['__type'] as String?;
+      mealType: json['meal_type'] as String,
+      protein: (json['protein'] as num)?.toDouble(),
+      calories: (json['calories'] as num)?.toDouble(),
+      fat: (json['fat'] as num)?.toDouble(),
+      name: json['name'] as String,
+      carbs: (json['carbs'] as num)?.toDouble(),
+      caffeine: (json['caffeine'] as num)?.toDouble(),
+    )..$type = json['__type'] as String;
 
-Map<String, dynamic> _$NutritionHealthValueToJson(
-    NutritionHealthValue instance) {
+Map<String, dynamic> _$NutritionHealthValueToJson(NutritionHealthValue instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -528,16 +497,14 @@ Map<String, dynamic> _$NutritionHealthValueToJson(
   return val;
 }
 
-WorkoutSummary _$WorkoutSummaryFromJson(Map<String, dynamic> json) =>
-    WorkoutSummary(
+WorkoutSummary _$WorkoutSummaryFromJson(Map<String, dynamic> json) => WorkoutSummary(
       workoutType: json['workout_type'] as String,
       totalDistance: json['total_distance'] as num,
       totalEnergyBurned: json['total_energy_burned'] as num,
       totalSteps: json['total_steps'] as num,
     );
 
-Map<String, dynamic> _$WorkoutSummaryToJson(WorkoutSummary instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$WorkoutSummaryToJson(WorkoutSummary instance) => <String, dynamic>{
       'workout_type': instance.workoutType,
       'total_distance': instance.totalDistance,
       'total_energy_burned': instance.totalEnergyBurned,

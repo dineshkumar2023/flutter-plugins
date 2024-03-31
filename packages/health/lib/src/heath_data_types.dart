@@ -506,16 +506,38 @@ enum ElectrocardiogramClassification {
 }
 
 /// Extension to assign numbers to [ElectrocardiogramClassification]s
-extension ElectrocardiogramClassificationValue
-    on ElectrocardiogramClassification {
-  int get value => switch (this) {
-        ElectrocardiogramClassification.NOT_SET => 0,
-        ElectrocardiogramClassification.SINUS_RHYTHM => 1,
-        ElectrocardiogramClassification.ATRIAL_FIBRILLATION => 2,
-        ElectrocardiogramClassification.INCONCLUSIVE_LOW_HEART_RATE => 3,
-        ElectrocardiogramClassification.INCONCLUSIVE_HIGH_HEART_RATE => 4,
-        ElectrocardiogramClassification.INCONCLUSIVE_POOR_READING => 5,
-        ElectrocardiogramClassification.INCONCLUSIVE_OTHER => 6,
-        ElectrocardiogramClassification.UNRECOGNIZED => 100,
-      };
+extension ElectrocardiogramClassificationValue on ElectrocardiogramClassification {
+  // int get value {} switch (this) {
+  //       ElectrocardiogramClassification.NOT_SET => 0,
+  //       ElectrocardiogramClassification.SINUS_RHYTHM => 1,
+  //       ElectrocardiogramClassification.ATRIAL_FIBRILLATION => 2,
+  //       ElectrocardiogramClassification.INCONCLUSIVE_LOW_HEART_RATE => 3,
+  //       ElectrocardiogramClassification.INCONCLUSIVE_HIGH_HEART_RATE => 4,
+  //       ElectrocardiogramClassification.INCONCLUSIVE_POOR_READING => 5,
+  //       ElectrocardiogramClassification.INCONCLUSIVE_OTHER => 6,
+  //       ElectrocardiogramClassification.UNRECOGNIZED => 100,
+  //     };
+
+  int get value {
+    switch (this) {
+      case ElectrocardiogramClassification.NOT_SET:
+        return 0;
+      case ElectrocardiogramClassification.SINUS_RHYTHM:
+        return 1;
+      case ElectrocardiogramClassification.ATRIAL_FIBRILLATION:
+        return 2;
+      case ElectrocardiogramClassification.INCONCLUSIVE_LOW_HEART_RATE:
+        return 3;
+      case ElectrocardiogramClassification.INCONCLUSIVE_HIGH_HEART_RATE:
+        return 4;
+      case ElectrocardiogramClassification.INCONCLUSIVE_POOR_READING:
+        return 5;
+      case ElectrocardiogramClassification.INCONCLUSIVE_OTHER:
+        return 6;
+      case ElectrocardiogramClassification.UNRECOGNIZED:
+        return 100;
+      default:
+        throw Exception('Invalid ElectrocardiogramClassification: $this');
+    }
+  }
 }
