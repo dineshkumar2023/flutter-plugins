@@ -542,6 +542,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
                                 Log.i("FLUTTER_HEALTH", "Access Denied!")
                                 mResult?.success(false)
                         }
+                        return true
                 }
                 return false
         }
