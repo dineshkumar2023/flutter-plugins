@@ -533,19 +533,37 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
                 handler?.post { mResult?.error(errorCode, errorMessage, errorDetails) }
         }
 
+        // override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+        //         Log.i("FLUTTER_HEALTH", "Access Denied see  ! ${data} "+${resultCode} )
+        //         if (requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
+        //                 if (resultCode == Activity.RESULT_OK && data!=null) {
+        //                         Log.i("FLUTTER_HEALTH", "Access Granted!")
+        //                         mResult?.success(true)
+        //                 } else if (resultCode == Activity.RESULT_CANCELED &&data!=null) {
+        //                         Log.i("FLUTTER_HEALTH", "Access Denied!")
+        //                         mResult?.success(false)
+        //                 }
+        //                 return true
+        //         }
+        //         return false
+        // }
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-                if (requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
-                        if (resultCode == Activity.RESULT_OK) {
-                                Log.i("FLUTTER_HEALTH", "Access Granted!")
-                                mResult?.success(true)
-                        } else if (resultCode == Activity.RESULT_CANCELED) {
-                                Log.i("FLUTTER_HEALTH", "Access Denied!")
-                                mResult?.success(false)
-                        }
-                        return true
+                val result = mResult
+                if (requestCode == GOOGLE_FIT_PERMISSIONS_REQUEST_CODE && result != null) {
+                    if (resultCode == Activity.RESULT_OK) {
+                        Log.i("FLUTTER_HEALTH", "Access Granted!")
+                        result.success(true)
+                    } else if (resultCode == Activity.RESULT_CANCELED) {
+                        Log.i("FLUTTER_HEALTH", "Access Denied!")
+                        result.success(false)
+                    }
+                    mResult = null // Reset mResult after sending the result
+                    return true // Indicate that the result has been handled
                 }
-                return false
-        }
+                return false // Let Flutter handle other activity results
+            }
+            
+            
 
         private fun onHealthConnectPermissionCallback(permissionGranted: Set<String>) {
                 if (permissionGranted.isEmpty()) {
